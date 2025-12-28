@@ -83,6 +83,12 @@ Add to the end of `~/.zshrc`:
 eval "$(starship init zsh)"
 ```
 
+Copy config:
+```bash
+mkdir -p ~/.config
+cp starship.toml ~/.config/starship.toml
+```
+
 ## 8. Neovim (Latest)
 
 The apt version is outdated. Install latest from GitHub releases:

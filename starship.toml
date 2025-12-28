@@ -1,0 +1,45 @@
+add_newline = false
+command_timeout = 500
+
+format = """
+$os$username$hostname
+$directory$git_branch$git_status$dotnet$character"""
+
+[os]
+disabled = false
+format = "[$symbol ]($style)"
+
+[os.symbols]
+Linux = ""
+Windows = ""
+Macos = ""
+
+[username]
+show_always = true
+style_user = "bold cyan"
+format = "[$user]($style)"
+
+[hostname]
+ssh_only = false
+style = "dimmed"
+format = "@[$hostname]($style)"
+
+[directory]
+style = "blue"
+truncate_to_repo = true
+truncation_length = 3
+
+[git_branch]
+symbol = " "
+style = "purple"
+
+[git_status]
+style = "red"
+
+[dotnet]
+symbol = " "
+disabled = false
+
+[character]
+success_symbol = "[❯](green)"
+error_symbol = "[❯](red)"
