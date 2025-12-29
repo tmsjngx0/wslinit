@@ -66,6 +66,7 @@ link_file "$DOTFILES_DIR/zsh/.zshrc" "$HOME/.zshrc"
 link_file "$DOTFILES_DIR/git/.gitconfig" "$HOME/.gitconfig"
 link_file "$DOTFILES_DIR/starship/starship.toml" "$HOME/.config/starship.toml"
 link_file "$DOTFILES_DIR/ssh/config" "$HOME/.ssh/config"
+link_file "$DOTFILES_DIR/nvim" "$HOME/.config/nvim"
 
 # Run platform-specific installer
 echo -e "\n${BLUE}━━━ Platform Setup ━━━${NC}"
