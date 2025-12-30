@@ -6,6 +6,8 @@
 
 ```bash
 ./install.sh              # 전체 설치 (symlinks + platform setup)
+./scripts/macos.sh        # macOS 패키지 설치
+./scripts/linux.sh        # Linux/WSL 패키지 설치
 ```
 
 ## Structure
@@ -17,6 +19,7 @@ dotfiles/
 ├── starship/starship.toml # Starship 프롬프트
 ├── ssh/config            # SSH 설정
 ├── nvim/                 # Neovim 설정 (lazy.nvim)
+├── packages/             # 패키지 리스트 (macos, linux, windows)
 └── scripts/
     ├── linux.sh          # Linux/WSL 패키지 설치
     └── macos.sh          # macOS 패키지 설치
@@ -33,8 +36,15 @@ dotfiles/
 link_file "$DOTFILES_DIR/<app>/config" "$HOME/.config/<app>/config"
 ```
 
+## Package Management
+
+- `packages/*.md`: 플랫폼별 패키지 리스트 (Required/Optional)
+- 설치: `scripts/macos.sh` 또는 `scripts/linux.sh`
+- 싱크 전략: `.project/design.md` 참고
+
 ## Development Guidelines
 
 - 설정 최소화: 필요한 것만 추가
 - 플랫폼 호환성 고려: macOS/Linux 분기 처리
 - 주석으로 설정 의도 설명
+- 테스트용 설치는 packages/*.md의 Required에 추가하지 않음
