@@ -25,6 +25,9 @@ build-essential
 curl
 wget
 unzip
+
+# WSL utilities
+wslu
 ```
 
 ## Required (manual/script)
