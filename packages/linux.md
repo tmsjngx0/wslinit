@@ -92,6 +92,7 @@ w3m             # HTML preview
 - @anthropic-ai/claude-code
 - @fission-ai/openspec
 - @openai/codex
+- @fresh-editor/fresh-editor
 
 ### Yazi Preview Dependencies
 - ffmpeg, 7z, imagemagick, poppler-utils

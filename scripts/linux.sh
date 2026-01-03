@@ -104,7 +104,7 @@ if [[ "$SHELL" == *"zsh"* ]]; then
 else
     echo -e "${RED}[NOT SET]${NC} Default shell is $SHELL"
     if ask "Set zsh as default shell?"; then
-        chsh -s "$(which zsh)"
+        sudo chsh -s "$(which zsh)" "$USER"
         echo -e "${GREEN}Done - restart terminal to take effect${NC}"
     fi
 fi

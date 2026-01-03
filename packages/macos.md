@@ -39,6 +39,15 @@ font-hack-nerd-font    # or other nerd font
 iterm2
 ```
 
+## Required (npm global)
+
+```
+@anthropic-ai/claude-code
+@fission-ai/openspec
+@openai/codex
+@fresh-editor/fresh-editor  # Terminal IDE
+```
+
 ## Optional
 
 ```
