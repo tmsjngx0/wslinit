@@ -68,6 +68,24 @@ link_file "$DOTFILES_DIR/starship/starship.toml" "$HOME/.config/starship.toml"
 link_file "$DOTFILES_DIR/ssh/config" "$HOME/.ssh/config"
 link_file "$DOTFILES_DIR/nvim" "$HOME/.config/nvim"
 
+# WSL-specific setup (requires sudo, can't symlink to /etc)
+if [ "$OS" = "wsl" ]; then
+    echo -e "\n${BLUE}━━━ WSL Configuration ━━━${NC}"
+    if [ -f "$DOTFILES_DIR/wsl/wsl.conf" ]; then
+        if ! diff -q "$DOTFILES_DIR/wsl/wsl.conf" /etc/wsl.conf >/dev/null 2>&1; then
+            echo -e "${YELLOW}Update /etc/wsl.conf?${NC}"
+            read -p "[y/N]: " response
+            if [[ "$response" =~ ^[Yy]$ ]]; then
+                sudo cp "$DOTFILES_DIR/wsl/wsl.conf" /etc/wsl.conf
+                echo -e "${GREEN}[COPIED]${NC} /etc/wsl.conf"
+                echo -e "${YELLOW}Run 'wsl --shutdown' in PowerShell to apply changes${NC}"
+            fi
+        else
+            echo -e "${GREEN}[OK]${NC} /etc/wsl.conf is up to date"
+        fi
+    fi
+fi
+
 # Run platform-specific installer
 echo -e "\n${BLUE}━━━ Platform Setup ━━━${NC}"
 

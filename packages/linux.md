@@ -14,6 +14,7 @@ ripgrep
 fd-find
 jq
 tree
+zoxide
 
 # Terminal
 zellij
@@ -47,6 +48,9 @@ curl -LsSf https://astral.sh/uv/install.sh | sh
 
 # Claude Code
 npm install -g @anthropic-ai/claude-code
+
+# Yazi (terminal file manager)
+# https://github.com/sxyazi/yazi/releases
 ```
 
 ## Optional
@@ -55,6 +59,12 @@ npm install -g @anthropic-ai/claude-code
 go
 rustup
 docker-ce
+
+# Yazi dependencies (file manager previews)
+ffmpeg
+7zip
+poppler-utils   # PDF preview
+imagemagick     # Image preview
 ```
 
 ## Currently Installed (reference)

@@ -78,7 +78,7 @@ else
     if ask "Install APT packages (build-essential, git, zsh, jq, ripgrep, fzf, java)?"; then
         sudo apt update && sudo apt upgrade -y
         sudo apt install -y build-essential curl wget ca-certificates git unzip zip \
-            pkg-config software-properties-common htop tree jq ripgrep fd-find fzf zsh openjdk-8-jdk
+            pkg-config software-properties-common htop tree jq ripgrep fd-find fzf zoxide zsh openjdk-8-jdk
         echo -e "${GREEN}Done${NC}"
     fi
 fi
@@ -289,6 +289,27 @@ else
     if ask "Install openspec?"; then
         npm install -g @fission-ai/openspec
         echo -e "${GREEN}Done${NC}"
+    fi
+fi
+
+# 19. Yazi
+section "Yazi (terminal file manager)"
+if status "Yazi" "yazi"; then :; else
+    if ask "Install Yazi?"; then
+        YAZI_VERSION=$(curl -s "https://api.github.com/repos/sxyazi/yazi/releases/latest" | jq -r '.tag_name')
+        curl -Lo /tmp/yazi.zip "https://github.com/sxyazi/yazi/releases/download/${YAZI_VERSION}/yazi-x86_64-unknown-linux-musl.zip"
+        unzip -o /tmp/yazi.zip -d /tmp
+        sudo install /tmp/yazi-x86_64-unknown-linux-musl/yazi /usr/local/bin
+        sudo install /tmp/yazi-x86_64-unknown-linux-musl/ya /usr/local/bin
+        rm -rf /tmp/yazi.zip /tmp/yazi-x86_64-unknown-linux-musl
+        echo -e "${GREEN}Done${NC}"
+
+        # Optional dependencies
+        echo -e "${YELLOW}Installing optional dependencies for previews...${NC}"
+        if ask "Install yazi preview dependencies (ffmpeg, 7zip, poppler, imagemagick)?"; then
+            sudo apt install -y ffmpeg p7zip-full poppler-utils imagemagick
+            echo -e "${GREEN}Done${NC}"
+        fi
     fi
 fi
 
