@@ -66,6 +66,7 @@ ffmpeg
 7zip
 poppler-utils   # PDF preview
 imagemagick     # Image preview
+w3m             # HTML preview
 ```
 
 ## Currently Installed (2026-01-03)

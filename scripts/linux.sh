@@ -2,6 +2,15 @@
 
 set -e
 
+# Parse args
+AUTO_YES=false
+while [[ $# -gt 0 ]]; do
+    case $1 in
+        -y|--yes) AUTO_YES=true; shift ;;
+        *) shift ;;
+    esac
+done
+
 # Colors
 RED='\033[0;31m'
 GREEN='\033[0;32m'
@@ -14,10 +23,15 @@ is_installed() {
     command -v "$1" &> /dev/null
 }
 
-# Ask y/n
+# Ask y/n (auto-yes if -y flag)
 ask() {
     local prompt=$1
     local default=${2:-n}
+
+    if $AUTO_YES; then
+        echo -e "${YELLOW}$prompt${NC} [auto: yes]"
+        return 0
+    fi
 
     if [[ "$default" == "y" ]]; then
         echo -e -n "${YELLOW}$prompt [Y/n]: ${NC}"

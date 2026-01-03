@@ -1,0 +1,32 @@
+# Yazi Configuration
+# https://yazi-rs.github.io/docs/configuration/yazi
+
+[mgr]
+# Pane ratios: parent : current : preview
+ratio = [2, 2, 4]
+
+# Show hidden files
+show_hidden = true
+
+# Sort directories first
+sort_dir_first = true
+
+[preview]
+wrap = "yes"  # Wrap long lines in preview
+
+# Maximum file size to preview (in bytes)
+max_width = 1000
+max_height = 1000
+
+# Image preview
+image_filter = "triangle"
+image_quality = 75
+
+[plugin]
+# HTML preview using w3m
+prepend_previewers = [
+    { mime = "text/html", run = "html-preview" },
+]
+
+[opener]
+# Use default openers - customize per platform if needed

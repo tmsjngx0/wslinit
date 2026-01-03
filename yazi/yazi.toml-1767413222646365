@@ -1,0 +1,24 @@
+# Yazi Configuration
+# https://yazi-rs.github.io/docs/configuration/yazi
+
+[manager]
+# Pane ratios: parent : current : preview
+ratio = [1, 3, 4]
+
+# Show hidden files
+show_hidden = true
+
+# Sort directories first
+sort_dir_first = true
+
+[preview]
+# Maximum file size to preview (in bytes)
+max_width = 1000
+max_height = 1000
+
+# Image preview
+image_filter = "triangle"
+image_quality = 75
+
+[opener]
+# Use default openers - customize per platform if needed

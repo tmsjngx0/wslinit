@@ -10,14 +10,14 @@
     }
   },
   "active_sessions": {
-    "0ea8bb87-ba70-4571-ae92-81635ff2d7c1": {
+    "8b9aab32-d80a-4de1-aa24-48122bb21fbe": {
       "focus": "none",
-      "started": "2026-01-03T00:42:46.181Z",
-      "last_active": "2026-01-03T01:53:19.784Z",
+      "started": "2026-01-03T03:56:57.447Z",
+      "last_active": "2026-01-03T19:16:21.596Z",
       "cwd": "/Users/thoma/source/dotfiles"
     }
   },
-  "last_updated": "2026-01-03T01:53:19.785Z",
+  "last_updated": "2026-01-03T19:16:21.596Z",
   "onboarding": {
     "shown": true,
     "date": "2026-01-02"

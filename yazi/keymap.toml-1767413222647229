@@ -1,0 +1,23 @@
+# Yazi Keymap Configuration
+# https://yazi-rs.github.io/docs/configuration/keymap
+
+# Pane resizing (defaults included for reference)
+# [ - Decrease parent width
+# ] - Increase parent width
+# { - Decrease preview width
+# } - Increase preview width
+
+[[manager.prepend_keymap]]
+on = ["g", "d"]
+run = "cd ~/Downloads"
+desc = "Go to Downloads"
+
+[[manager.prepend_keymap]]
+on = ["g", "s"]
+run = "cd ~/source"
+desc = "Go to source"
+
+[[manager.prepend_keymap]]
+on = ["g", "c"]
+run = "cd ~/.config"
+desc = "Go to .config"

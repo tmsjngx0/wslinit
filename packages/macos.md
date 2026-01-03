@@ -90,6 +90,7 @@ uv
 wakeonlan
 watchman
 yazi
+w3m              # HTML preview for yazi
 ```
 
 </details>
