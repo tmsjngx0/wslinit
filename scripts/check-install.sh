@@ -109,6 +109,8 @@ check "ripgrep" "rg"
 check "fd" "fdfind"
 check "fzf" "fzf"
 check "zoxide" "zoxide"
+check "xclip" "xclip"
+check "wl-copy" "wl-copy"
 
 echo -e "\n${BLUE}━━━ Dotfiles ━━━${NC}"
 for f in .zshrc .gitconfig; do

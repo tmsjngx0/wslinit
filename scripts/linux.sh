@@ -92,7 +92,8 @@ else
     if ask "Install APT packages (build-essential, git, zsh, jq, ripgrep, fzf, java)?"; then
         sudo apt update && sudo apt upgrade -y
         sudo apt install -y build-essential curl wget ca-certificates git unzip zip \
-            pkg-config software-properties-common htop tree jq ripgrep fd-find fzf zoxide zsh openjdk-8-jdk
+            pkg-config software-properties-common htop tree jq ripgrep fd-find fzf zoxide zsh openjdk-8-jdk \
+            xclip wl-clipboard
         echo -e "${GREEN}Done${NC}"
     fi
 fi
