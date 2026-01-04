@@ -77,6 +77,7 @@ link_file "$DOTFILES_DIR/starship/starship.toml" "$HOME/.config/starship.toml"
 link_file "$DOTFILES_DIR/ssh/config" "$HOME/.ssh/config"
 link_file "$DOTFILES_DIR/nvim" "$HOME/.config/nvim"
 link_file "$DOTFILES_DIR/yazi" "$HOME/.config/yazi"
+link_file "$DOTFILES_DIR/claude/statusline-command.sh" "$HOME/.claude/statusline-command.sh"
 
 # WSL-specific setup (requires sudo, can't symlink to /etc)
 if [ "$OS" = "wsl" ]; then
