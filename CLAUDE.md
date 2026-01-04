@@ -38,6 +38,8 @@ dotfiles/
 ├── starship/starship.toml # Starship 프롬프트
 ├── ssh/config            # SSH 설정
 ├── nvim/                 # Neovim 설정 (lazy.nvim)
+├── yazi/                 # Yazi 파일 매니저 설정
+├── claude/               # Claude Code 설정
 ├── packages/             # 패키지 리스트 (macos, linux, windows)
 └── scripts/
     ├── linux.sh          # Linux/WSL 패키지 설치
@@ -128,34 +130,16 @@ curl -fsSL https://bun.sh/install | bash
 
 ### StatusLine Configuration
 
-Custom statusLine showing: `hostname ➜ folder git:(branch) ✗`
+Custom statusLine showing: `hostname ➜ folder git:(branch) +1~2?3 ↑1↓2`
 
-1. Create `~/.claude/statusline-command.sh`:
-```bash
-#!/bin/bash
-input=$(cat)
-cwd=$(echo "$input" | jq -r '.workspace.current_dir')
-folder=$(basename "$cwd")
-hostname=$(hostname -s)
+- `+N` (green): staged files
+- `~N` (yellow): modified files
+- `?N` (red): untracked files
+- `↑N↓N` (cyan): ahead/behind remote
 
-output="${hostname} "
-output+=$(printf "\033[1;32m➜\033[0m")
-output+=" ${folder}"
+Script is in `claude/statusline-command.sh` (symlinked by install.sh).
 
-if [ -d "${cwd}/.git" ] || git -C "$cwd" rev-parse --git-dir > /dev/null 2>&1; then
-    branch=$(git -C "$cwd" --no-optional-locks rev-parse --abbrev-ref HEAD 2>/dev/null)
-    if [ -n "$branch" ]; then
-        output+=" git:(${branch})"
-        if ! git -C "$cwd" --no-optional-locks diff --quiet 2>/dev/null || \
-           ! git -C "$cwd" --no-optional-locks diff --cached --quiet 2>/dev/null; then
-            output+=$(printf " \033[1;33m✗\033[0m")
-        fi
-    fi
-fi
-echo "$output"
-```
-
-2. Add to `~/.claude/settings.json`:
+Add to `~/.claude/settings.json`:
 ```json
 {
   "statusLine": {
@@ -164,9 +148,3 @@ echo "$output"
   }
 }
 ```
-
-**Alternative statusLine ideas:**
-- Minimal: `◉ main` (just git branch)
-- SSH-style: `thoma@macbook ~/devops (main±)`
-- Time-aware: `14:32 devops git:(main)`
-- Fish-style: `❯❯❯ devops (main*)`
