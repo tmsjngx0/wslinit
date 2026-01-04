@@ -12,17 +12,20 @@ folder=$(basename "$cwd")
 # Get hostname
 hostname=$(hostname -s)
 
-# Colors
-GREEN='\033[1;32m'
+# Colors (matching starship theme)
+DIM='\033[2m'
+BLUE='\033[0;34m'
+GREEN='\033[0;32m'
 YELLOW='\033[1;33m'
 RED='\033[0;31m'
-CYAN='\033[0;36m'
+CYAN='\033[1;36m'
+PURPLE='\033[0;35m'
 RESET='\033[0m'
 
-# Initialize output with hostname and arrow
-output="${hostname} "
-output+=$(printf "${GREEN}➜${RESET}")
-output+=" ${folder}"
+# Initialize output (starship-style)
+output=$(printf "${DIM}${hostname}${RESET}")
+output+=$(printf " ${GREEN}❯${RESET}")
+output+=$(printf " ${BLUE}${folder}${RESET}")
 
 # Check if in a git repository
 if [ -d "${cwd}/.git" ] || git -C "$cwd" rev-parse --git-dir > /dev/null 2>&1; then
@@ -30,7 +33,7 @@ if [ -d "${cwd}/.git" ] || git -C "$cwd" rev-parse --git-dir > /dev/null 2>&1; t
     branch=$(git -C "$cwd" --no-optional-locks rev-parse --abbrev-ref HEAD 2>/dev/null)
 
     if [ -n "$branch" ]; then
-        output+=" git:(${branch})"
+        output+=$(printf " ${PURPLE} ${branch}${RESET}")
 
         # Get file counts using git status --porcelain
         status=$(git -C "$cwd" --no-optional-locks status --porcelain 2>/dev/null)
