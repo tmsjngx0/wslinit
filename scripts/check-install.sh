@@ -16,6 +16,11 @@ echo -e "${NC}"
 MISSING=0
 INSTALLED=0
 
+# Platform detection
+OS="$(uname -s)"
+is_macos() { [[ "$OS" == "Darwin" ]]; }
+is_linux() { [[ "$OS" == "Linux" ]]; }
+
 check() {
     local name=$1
     local cmd=$2
@@ -67,7 +72,8 @@ check_dir "zsh-syntax-highlighting" "${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plug
 check "starship" "starship"
 
 echo -e "\n${BLUE}━━━ Editors & Tools ━━━${NC}"
-check_path "neovim" "/opt/nvim-linux-x86_64/bin/nvim"
+# neovim: use command check (works on both macOS brew and Linux /opt path)
+check "neovim" "nvim"
 check "lazygit" "lazygit" "--version"
 check "yazi" "yazi" "--version"
 check "zellij" "zellij" "--version"
@@ -106,11 +112,21 @@ check "git" "git"
 check "curl" "curl"
 check "jq" "jq"
 check "ripgrep" "rg"
-check "fd" "fdfind"
+# fd: called 'fd' on macOS, 'fdfind' on Debian/Ubuntu
+if is_macos; then
+    check "fd" "fd"
+else
+    check "fd" "fdfind"
+fi
 check "fzf" "fzf"
 check "zoxide" "zoxide"
-check "xclip" "xclip"
-check "wl-copy" "wl-copy"
+# Clipboard tools: platform-specific
+if is_linux; then
+    check "xclip" "xclip"
+    check "wl-copy" "wl-copy"
+elif is_macos; then
+    check "pbcopy" "pbcopy"  # macOS built-in
+fi
 
 echo -e "\n${BLUE}━━━ Dotfiles ━━━${NC}"
 for f in .zshrc .gitconfig; do
