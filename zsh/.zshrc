@@ -39,11 +39,6 @@ if [ -f "$HOME/.local/bin/env" ]; then
     source "$HOME/.local/bin/env"
 fi
 
-# openspec completions
-if command -v openspec &> /dev/null; then
-    eval "$(openspec completion zsh)"
-fi
-
 # Homebrew (macOS)
 if [ -f "/opt/homebrew/bin/brew" ]; then
     eval "$(/opt/homebrew/bin/brew shellenv)"
