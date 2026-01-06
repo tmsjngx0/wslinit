@@ -5,6 +5,7 @@ add_newline = true
 continuation_prompt = "[▸▹ ](dimmed white)"
 
 format = """($nix_shell$container$fill$git_metrics\n)$cmd_duration\
+$username\
 $hostname\
 $localip\
 $shlvl\
@@ -12,7 +13,6 @@ $shell\
 $env_var\
 $jobs\
 $sudo\
-$username\
 $character"""
 
 right_format = """
@@ -114,12 +114,18 @@ style = "bold italic #bb9af7"
 symbol = "⋈┈"
 disabled = false
 
+[hostname]
+ssh_only = false
+format = "[$hostname]($style)"
+style = "bold #7dcfff"
+disabled = false
+
 [username]
 style_user = "#e0af68 bold italic"
 style_root = "#bb9af7 bold italic"
-format = "[⭘ $user]($style) "
+format = "[$user]($style)@"
 disabled = false
-show_always = false
+show_always = true
 
 [directory]
 home_symbol = "⌂"
