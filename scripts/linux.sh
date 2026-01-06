@@ -89,11 +89,24 @@ if [[ ${#MISSING_APT[@]} -eq 0 ]]; then
     echo -e "${GREEN}[INSTALLED]${NC} All essential packages"
 else
     echo -e "${RED}[MISSING]${NC} ${MISSING_APT[*]}"
-    if ask "Install APT packages (build-essential, git, zsh, jq, ripgrep, fzf, java)?"; then
+    if ask "Install APT packages (build-essential, git, zsh, jq, ripgrep, fzf)?"; then
         sudo apt update && sudo apt upgrade -y
         sudo apt install -y build-essential curl wget ca-certificates git unzip zip \
-            pkg-config software-properties-common htop tree jq ripgrep fd-find fzf zoxide zsh openjdk-8-jdk \
+            pkg-config software-properties-common htop tree jq ripgrep fd-find fzf zoxide zsh \
             xclip wl-clipboard
+        echo -e "${GREEN}Done${NC}"
+    fi
+fi
+
+# 2b. Java (optional)
+section "Java (optional)"
+if dpkg -s openjdk-8-jdk &> /dev/null || dpkg -s openjdk-11-jdk &> /dev/null || dpkg -s openjdk-17-jdk &> /dev/null || dpkg -s openjdk-21-jdk &> /dev/null; then
+    echo -e "${GREEN}[INSTALLED]${NC} Java"
+    java -version 2>&1 | head -1
+else
+    echo -e "${YELLOW}[NOT INSTALLED]${NC} Java"
+    if ask "Install Java (OpenJDK 21)?"; then
+        sudo apt install -y openjdk-21-jdk
         echo -e "${GREEN}Done${NC}"
     fi
 fi
@@ -182,7 +195,7 @@ else
     if ask "Install fnm + Node LTS?"; then
         curl -fsSL https://fnm.vercel.app/install | bash
         export PATH="$HOME/.local/share/fnm:$PATH"
-        eval "$(fnm env)"
+        eval "$(fnm env --shell bash)"
         fnm install --lts
         echo -e "${GREEN}Done${NC}"
     fi
