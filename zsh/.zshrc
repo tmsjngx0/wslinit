@@ -82,6 +82,12 @@ alias gc="git commit"
 alias gp="git push"
 alias gl="git log --oneline"
 
+# Clipboard (OSC 52 - works over SSH)
+osc-copy() {
+  printf '\033]52;c;%s\a' "$(base64 | tr -d '\n')"
+}
+alias clip="osc-copy"
+
 # ============================================
 # Local config (machine-specific, not in git)
 # ============================================
@@ -99,5 +105,9 @@ fi
 # Prompt (load last)
 # ============================================
 if command -v starship &> /dev/null; then
+    # Use simplified config over SSH (avoids right_format cursor issues)
+    if [[ -n "$SSH_CONNECTION" || -n "$SSH_TTY" ]]; then
+        export STARSHIP_CONFIG="$HOME/.config/starship-ssh.toml"
+    fi
     eval "$(starship init zsh)"
 fi
