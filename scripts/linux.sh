@@ -152,7 +152,20 @@ else
     fi
 fi
 
-# 6. Starship
+# 6. Snapd (needed for WSL)
+section "Snapd"
+if systemctl is-active --quiet snapd.socket 2>/dev/null; then
+    echo -e "${GREEN}[RUNNING]${NC} Snapd"
+else
+    echo -e "${YELLOW}[NOT RUNNING]${NC} Snapd"
+    if ask "Enable snapd? (required for snap packages)"; then
+        sudo systemctl enable --now snapd.socket
+        sudo ln -sf /snap /snap 2>/dev/null || true
+        echo -e "${GREEN}Done${NC}"
+    fi
+fi
+
+# 7. Starship
 section "Starship Prompt"
 if status "Starship" "starship"; then :; else
     if ask "Install Starship?"; then
@@ -162,28 +175,16 @@ if status "Starship" "starship"; then :; else
     fi
 fi
 
-# 7. Neovim
+# 8. Neovim (via snap)
 section "Neovim"
 if is_installed "nvim"; then
     NVIM_VER=$(nvim --version | head -1)
     echo -e "${GREEN}[INSTALLED]${NC} $NVIM_VER"
-    if ask "Upgrade to latest Neovim?"; then
-        curl -LO https://github.com/neovim/neovim/releases/latest/download/nvim-linux-x86_64.tar.gz
-        sudo rm -rf /opt/nvim-linux-x86_64
-        sudo tar -C /opt -xzf nvim-linux-x86_64.tar.gz
-        rm nvim-linux-x86_64.tar.gz
-        echo -e "${GREEN}Done${NC}"
-        echo -e "${YELLOW}Add to ~/.zshrc: export PATH=\"\$PATH:/opt/nvim-linux-x86_64/bin\"${NC}"
-    fi
 else
     echo -e "${RED}[MISSING]${NC} Neovim"
-    if ask "Install Neovim (latest)?"; then
-        curl -LO https://github.com/neovim/neovim/releases/latest/download/nvim-linux-x86_64.tar.gz
-        sudo rm -rf /opt/nvim-linux-x86_64
-        sudo tar -C /opt -xzf nvim-linux-x86_64.tar.gz
-        rm nvim-linux-x86_64.tar.gz
+    if ask "Install Neovim via snap?"; then
+        sudo snap install nvim --classic
         echo -e "${GREEN}Done${NC}"
-        echo -e "${YELLOW}Add to ~/.zshrc: export PATH=\"\$PATH:/opt/nvim-linux-x86_64/bin\"${NC}"
     fi
 fi
 
@@ -265,15 +266,11 @@ if status "Azure CLI" "az"; then :; else
     fi
 fi
 
-# 14. lazygit
+# 14. lazygit (via snap)
 section "lazygit"
 if status "lazygit" "lazygit"; then :; else
-    if ask "Install lazygit?"; then
-        LAZYGIT_VERSION=$(curl -s "https://api.github.com/repos/jesseduffield/lazygit/releases/latest" | jq -r '.tag_name' | sed 's/v//')
-        curl -Lo /tmp/lazygit.tar.gz "https://github.com/jesseduffield/lazygit/releases/latest/download/lazygit_${LAZYGIT_VERSION}_Linux_x86_64.tar.gz"
-        tar xf /tmp/lazygit.tar.gz -C /tmp lazygit
-        sudo install /tmp/lazygit /usr/local/bin
-        rm /tmp/lazygit /tmp/lazygit.tar.gz
+    if ask "Install lazygit via snap?"; then
+        sudo snap install lazygit
         echo -e "${GREEN}Done${NC}"
     fi
 fi
@@ -341,7 +338,16 @@ if status "Yazi" "yazi"; then :; else
     fi
 fi
 
-# 20. delta (git diff viewer)
+# 20. glow (via snap)
+section "glow (markdown viewer)"
+if status "glow" "glow"; then :; else
+    if ask "Install glow via snap?"; then
+        sudo snap install glow
+        echo -e "${GREEN}Done${NC}"
+    fi
+fi
+
+# 21. delta (git diff viewer)
 section "delta (git diff viewer)"
 if status "delta" "delta"; then :; else
     if ask "Install delta?"; then

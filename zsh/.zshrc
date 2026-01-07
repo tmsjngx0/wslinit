@@ -60,6 +60,11 @@ if [ -f "/opt/homebrew/bin/brew" ]; then
     eval "$(/opt/homebrew/bin/brew shellenv)"
 fi
 
+# Snap (Linux/WSL)
+if [ -d "/snap/bin" ]; then
+    export PATH="/snap/bin:$PATH"
+fi
+
 # ============================================
 # Aliases
 # ============================================
