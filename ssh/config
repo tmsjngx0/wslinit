@@ -1,3 +1,9 @@
+# M2 Mini
+Host m2mini
+    HostName m2mini.local
+    User thoma
+    IdentityFile ~/.ssh/id_github
+
 # GitHub
 Host github.com
     HostName github.com
