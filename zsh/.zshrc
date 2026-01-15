@@ -117,3 +117,4 @@ if command -v starship &> /dev/null; then
     fi
     eval "$(starship init zsh)"
 fi
+export DISABLE_AUTOUPDATER=1
